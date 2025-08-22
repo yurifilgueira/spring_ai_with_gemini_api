@@ -1,7 +1,9 @@
 package com.yuri.gemini.services;
 
+import com.yuri.gemini.dto.PromptRequest;
+
 public interface ChatService {
 
-    String getAnswer(String question);
+    String getAnswer(PromptRequest prompt);
 
 }

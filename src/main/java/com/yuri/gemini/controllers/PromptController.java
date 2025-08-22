@@ -1,11 +1,9 @@
 package com.yuri.gemini.controllers;
 
+import com.yuri.gemini.dto.PromptRequest;
 import com.yuri.gemini.services.ChatService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/api/chat")
@@ -19,7 +17,7 @@ public class PromptController {
     }
 
     @GetMapping()
-    public String prompt(@RequestParam(value = "prompt") String prompt) {
+    public String prompt(@RequestBody PromptRequest prompt) {
         return chatService.getAnswer(prompt);
     }
 }
