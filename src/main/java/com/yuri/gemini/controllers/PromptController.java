@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/api/prompt")
+@RequestMapping(value = "/api/chat")
 public class PromptController {
 
     private final ChatService chatService;
@@ -19,8 +19,7 @@ public class PromptController {
     }
 
     @GetMapping()
-    public String prompt(@RequestParam(value = "question") String question) {
-        return chatService.getAnswer(question);
+    public String prompt(@RequestParam(value = "prompt") String prompt) {
+        return chatService.getAnswer(prompt);
     }
-
 }

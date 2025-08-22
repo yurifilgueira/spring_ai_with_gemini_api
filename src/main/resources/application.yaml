@@ -1,6 +1,7 @@
 spring:
   application:
     name: test_gemini
+
   ai:
     openai:
       api-key: ${GEMINI_API_KEY}
@@ -9,3 +10,14 @@ spring:
         completions-path: /chat/completions
         options:
           model: gemini-2.5-flash
+
+  datasource:
+    url: jdbc:hsqldb:mem:chatdb
+    driver-class-name: org.hsqldb.jdbc.JDBCDriver
+    username: root
+    password:
+
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:org/springframework/ai/chat/memory/repository/jdbc/schema-hsqldb.sql
