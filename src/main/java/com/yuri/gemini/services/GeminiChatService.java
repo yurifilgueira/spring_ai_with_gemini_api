@@ -1,6 +1,8 @@
 package com.yuri.gemini.services;
 
 import com.yuri.gemini.dto.PromptRequest;
+import com.yuri.gemini.tools.DateTimeTool;
+import com.yuri.gemini.tools.NewsApiTool;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.vectorstore.QuestionAnswerAdvisor;
 import org.springframework.ai.chat.client.advisor.vectorstore.VectorStoreChatMemoryAdvisor;
@@ -17,10 +19,12 @@ public class GeminiChatService implements ChatService {
 
     private final ChatClient chatClient;
     private final VectorStore vectorStore;
+    private final NewsApiTool newsApiTool;
 
-    public GeminiChatService(ChatClient chatClient, VectorStore vectorStore) {
+    public GeminiChatService(ChatClient chatClient, VectorStore vectorStore, NewsApiTool newsApiTool) {
         this.chatClient = chatClient;
         this.vectorStore = vectorStore;
+        this.newsApiTool = newsApiTool;
     }
 
     @Override
@@ -33,6 +37,7 @@ public class GeminiChatService implements ChatService {
                                 QuestionAnswerAdvisor.builder(vectorStore).build())
                 .advisors(a -> a.param(ChatMemory.CONVERSATION_ID, conversationId))
                 .user(userMessage -> userMessage.text(prompt.prompt()))
+                .tools(this.newsApiTool, new DateTimeTool())
                 .call()
                 .content();
     }

@@ -37,3 +37,7 @@ spring:
     init:
       mode: always
       schema-locations: classpath:org/springframework/ai/chat/memory/repository/jdbc/schema-hsqldb.sql
+
+news-api:
+  key: ${NEWS_API_KEY}
+  base-url: https://newsapi.org/v2
